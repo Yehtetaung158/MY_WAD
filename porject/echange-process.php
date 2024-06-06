@@ -22,7 +22,16 @@ $to_currency_rate=str_replace(',','', $to_currency_arr[1]);
 
 $to=$from_currency_rate/$to_currency_rate*$amount;
 
-echo $to_currency_name ?>
+echo $to_currency_name;
+
+$fileName1 = "exchange_record_list.txt";
+            if (!file_exists($fileName1)) {
+                touch($fileName1);
+            }
+            $fileStream = fopen($fileName1, "a");
+            fwrite($fileStream, "\n $amount $from_currency_name => $to $to_currency_name");
+            fclose($fileStream);
+?>
 
 <?php include("./template/header.php") ?>
 <?php
@@ -59,8 +68,8 @@ include("./template/side_bar.php")
         <a href="./exchange.php" class="py-3  px-4 inline-flex w-full justify-center mt-8 items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
             Calculate Again
         </a>
-        <a href="./records-list.php" class="py-3 mt-8 justify-center px-4 inline-flex w-full  items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-200 text-gray-500 hover:border-blue-600 hover:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-blue-500 dark:hover:border-blue-600">
-            Records list
+        <a href="./exchange-record-list.php" class="py-3 mt-8 justify-center px-4 inline-flex w-full  items-center gap-x-2 text-sm font-semibold rounded-lg border border-gray-200 text-gray-500 hover:border-blue-600 hover:text-blue-600 disabled:opacity-50 disabled:pointer-events-none dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-blue-500 dark:hover:border-blue-600">
+            Exchange list
         </a>
     </div>
 
