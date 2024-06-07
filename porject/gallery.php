@@ -1,6 +1,6 @@
 <?php include("./template/header.php") ?>
 <?php include("./template/side_bar.php") ?>
-<section class="max-w-sm">
+<section class="">
     <form enctype="multipart/form-data" method="post" action="./gallery-process.php">
         <label class="block">
             <span class="sr-only">Choose profile photo</span>
@@ -22,12 +22,17 @@
     </form>
 
     <?php
-    $photos = array_filter(scandir("photo"),fn($el)=>$el!= "." && $el!="..");
+    $photos = array_filter(scandir("photo"), fn ($el) => $el != "." && $el != "..");
     ?>
 
-    <div class=" columns-2" >
+    <div class=" columns-2">
         <?php foreach ($photos as $photo) : ?>
-            <img class=" mb-3" src="./photo/<?= $photo?>">
+            <div class=" inline-block relative group">
+                <img class="mb-3" src="./photo/<?= $photo ?>">
+                <a onclick="return confirm('Are you sure to delete')" href="./gallery-photo-delete.php?file_name=<?= $photo ?>" class=" absolute right-1 bottom-1 group-hover:inline-flex hidden py-3 px-4  items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-100 text-red-800 hover:bg-red-200 disabled:opacity-50 disabled:pointer-events-none dark:hover:bg-red-900 dark:text-red-500 dark:hover:text-red-400">
+                    Button
+                </a>
+            </div>
         <?php endforeach ?>
     </div>
 
