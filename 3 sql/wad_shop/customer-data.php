@@ -33,9 +33,9 @@ if (!$conn) {
     <thead>
         <tr>
             <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Name</th>
-            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Gender</th>
-            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Birthday</th>
-            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Phone</th>
+            <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Gender</th>
+            <th scope="col" class="px-6 text-end py-3 text-xs font-medium text-gray-500 uppercase">Birthday</th>
+            <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Phone</th>
             <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Action</th>
         </tr>
     </thead>
@@ -49,8 +49,8 @@ if (!$conn) {
         ?>
             <tr class="hover:bg-gray-100">
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= $row['Name'] ?></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"><?= $row['Gender'] ?></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"><?= $row['Birthday'] ?></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 text-end"><?= $row['Gender'] ?></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 text-end"><?= $row['Birthday'] ?></td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800"><?= $row['Phone'] ?></td>
                 <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                     <a type="button" href="./cus-edit.php?row_id=<?= $row['id'] ?>"class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">
