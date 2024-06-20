@@ -16,23 +16,15 @@ $row=mysqli_fetch_assoc($query);
 
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+<?php require("./template/header.php"); ?>
+<?php include("./template/sidebar.php"); ?>
 <h1>Edit Project</h1>
-    <form action="./update.php" method="post" style="display: flex;">
-        <input type="hidden" name="id" value="<?= $id ?>" placeholder="name" required>
-        <input type="text" name="name" value="<?= $row["name"] ?>" required>
-        <input type="number" name="price" 
-        value="<?= $row["price"] ?>"placeholder="price" required>
-        <input type="text" name="stock" 
-        value="<?= $row["stock"] ?>"placeholder="stock" required>
-        <button type="submit">Submit</button>
-    </form>
+    <form action="./update.php" method="post" class=" flex gap-2" style="display: flex;">
+    <input type="hidden" name="id" value="<?= $id ?>" placeholder="name" required>
+    <input class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" type="text" name="name" value="<?= $row["name"] ?>"  placeholder="name" required>
+    <input class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none"  value="<?= $row["price"] ?>" type="number" name="price" placeholder="price" required>
+    <input class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none" type="text" name="stock" value="<?= $row["stock"] ?>" placeholder="stock" required>
+    <button class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" type="submit">Update</button>
+</form>
 </body>
 </html>
