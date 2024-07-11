@@ -9,7 +9,7 @@ $type = $_POST["type"];
 
 // SQL 
 
-$sql = "";
+$sql = "INSERT INTO `gender`(`type`) VALUES ('$type')";
 
 $query = mysqli_query($conn, $sql); // working stage
 
