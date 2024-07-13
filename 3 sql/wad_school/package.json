@@ -4,5 +4,8 @@
   },
   "dependencies": {
     "preline": "^2.3.0"
+  },
+  "scripts": {
+    "build:css": "tailwindcss -i ./input.css -o ./dist/output.css --watch"
   }
 }
