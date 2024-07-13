@@ -4,18 +4,65 @@
 echo "<pre>";
 require_once "./db_connection.php";
 ?>
+<?php
+$sql = "SELECT *,students.id as student_id FROM `students` LEFT JOIN nationlity ON nationlity.nationlity_id= students.nationality_id LEFT JOIN gender ON gender.id = students.gender_id ";
+
+$countSql = "SELECT count(id) as total_student FROM students ";
+
+if ($_GET['q']) {
+    $q = $_GET['q'];
+    $sql .= "WHERE name LIKE '%$q%'";
+    $countSql .= "WHERE name LIKE '%$q%'";
+}
+
+$sql .= "LIMIT 0,5";
+
+$query = mysqli_query($conn, $sql);
+$countQuery = mysqli_query($conn, $countSql);
+
+$countRow = mysqli_fetch_assoc($countQuery);
+?>
+<!-- while ($row = mysqli_fetch_assoc($query)) : -->
 <h1 class=" py-3">Students' List</h1>
 <div class=" w-full flex flex-col">
-    <div class=" flex justify-end">
-        <a href="./batchCreate.php" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" type="submit">Open Batch</a>
+    <div class=" flex justify-between items-center">
+        <a href="./batchCreate.php" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none" type="submit">Add Student</a>
+        <form action="./studentList.php" method="get">
+            <div class="flex rounded-lg shadow-sm">
+                <input name="q" type="text" id="hs-trailing-button-add-on-with-icon" name="hs-trailing-button-add-on-with-icon" class="py-3 px-4 block w-full border-gray-200 shadow-sm rounded-s-lg text-sm focus:z-10 ">
+                <button type="submit" class="w-[2.875rem] h-[2.875rem] flex-shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-e-md border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none">
+                    <svg class="flex-shrink-0 size-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </svg>
+                </button>
+            </div>
+        </form>
+
     </div>
+    <div class=" flex justify-end items-center">
+        <p>Showing result (<?= $countRow['total_student'] ?>)</p>
+        <?php if (isset($_GET['q'])) : ?>
+            <p>: search by '<?= $_GET['q'] ?>'</p>
+            <p class=" bg-red-200 px-2 py-1 rounded-full flex">
+                <a href="./studentList.php" class="flex items-center">
+                    <span class="flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4 text-red-700">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                        <span>Clean Search</span>
+                    </span>
+                </a>
+            </p>
+        <?php endif; ?>
+    </div>
+
     <div class=" w-full flex overflow-auto">
         <table class=" divide-y divide-gray-200 ">
             <thead>
                 <tr>
                     <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">#</th>
                     <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Student Info</th>
-                    
                     <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Birthday</th>
                     <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Pocket monry</th>
                     <th scope="col" class="px-6 text-end py-3 text-xs font-medium text-gray-500 uppercase">Created </th>
@@ -23,23 +70,18 @@ require_once "./db_connection.php";
                 </tr>
             </thead>
             <tbody class="divide-y divide-gray-200">
-                <?php
-                $sql = "SELECT *,students.id as student_id FROM `students` LEFT JOIN nationlity ON nationlity.nationlity_id= students.nationality_id LEFT JOIN gender ON gender.id = students.gender_id LIMIT 0,5";
 
-                $query = mysqli_query($conn, $sql);
-
-                while ($row = mysqli_fetch_assoc($query)) :
-                ?>
+                <?php while ($row = mysqli_fetch_assoc($query)) : ?>
                     <tr class="hover:bg-gray-100">
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= $row['student_id'] ?></td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= $row['name'] ?>
-                        <br>
-                        <span class=" bg-gray-300 text-gray-800 px-2 py-1 rounded-full text-xs "><?=$row['type'] ?></span>
-                        <span class=" bg-gray-300 text-gray-800 px-2 py-1 rounded-full text-xs "><?=$row['nation'] ?></span>
-                    </td>
+                            <br>
+                            <span class=" bg-gray-300 text-gray-800 px-2 py-1 rounded-full text-xs "><?= $row['type'] ?></span>
+                            <span class=" bg-gray-300 text-gray-800 px-2 py-1 rounded-full text-xs "><?= $row['nation'] ?></span>
+                        </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= $row['date_of_birth'] ?></td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= $row['pocket_money'] ?></td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= date("d M Y",strtotime($row['created_at'])) ?></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= date("d M Y", strtotime($row['created_at'])) ?></td>
                         <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                             <a type="button" href="./batch-edit.php?row_id=<?= $row['student_id'] ?>" class="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
