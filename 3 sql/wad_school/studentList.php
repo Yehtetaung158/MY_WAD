@@ -5,6 +5,9 @@ echo "<pre>";
 require_once "./db_connection.php";
 ?>
 <?php
+
+$recordPerPaage = 5;
+
 $sql = "SELECT *,students.id as student_id FROM `students` LEFT JOIN nationlity ON nationlity.nationlity_id= students.nationality_id LEFT JOIN gender ON gender.id = students.gender_id ";
 
 $countSql = "SELECT count(id) as total_student FROM students ";
@@ -15,12 +18,27 @@ if ($_GET['q']) {
     $countSql .= "WHERE name LIKE '%$q%'";
 }
 
-$sql .= "LIMIT 0,5";
 
-$query = mysqli_query($conn, $sql);
 $countQuery = mysqli_query($conn, $countSql);
 
 $countRow = mysqli_fetch_assoc($countQuery);
+
+$totalRecord = $countRow['total_student'];
+
+$totaPage = ceil($totalRecord / $recordPerPaage);
+
+echo ($totaPage);
+$currentPage = $_GET['page'];
+
+$offset = $currentPage * $recordPerPaage;
+
+$current_offset = $offset - 5;
+
+$sql .= "LIMIT $current_offset,$recordPerPaage";
+
+$query = mysqli_query($conn, $sql);
+
+
 ?>
 <!-- while ($row = mysqli_fetch_assoc($query)) : -->
 <h1 class=" py-3">Students' List</h1>
@@ -41,7 +59,7 @@ $countRow = mysqli_fetch_assoc($countQuery);
 
     </div>
     <div class=" flex justify-end items-center">
-        <p>Showing result (<?= $countRow['total_student'] ?>)</p>
+        <p>Showing result (<?= $totalRecord ?>)</p>
         <?php if (isset($_GET['q'])) : ?>
             <p>: search by '<?= $_GET['q'] ?>'</p>
             <p class=" bg-red-200 px-2 py-1 rounded-full flex">
@@ -101,7 +119,38 @@ $countRow = mysqli_fetch_assoc($countQuery);
             </tbody>
         </table>
     </div>
-</div>
+
+    <?php 
+        $start=$currentPage >3 ? $currentPage-3 : 1;
+        $end=$currentPage+3 < $totaPage ? $currentPage+3 : $totaPage;
+    ?>
+
+    <nav class="flex justify-start items-center gap-x-1">
+        <button type="button" class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">
+            <svg class="flex-shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m15 18-6-6 6-6"></path>
+            </svg>
+            <span aria-hidden="true" class="sr-only">Previous</span>
+        </button>
+        <div class="flex items-center gap-x-1">
+            <?php for ($i = $start; $i <= $end; $i++) : ?>
+                <a href="./studentList.php?page=<?= $i ?>" class=" flex items-center justify-center z-50 size-[38px] <?= $i == $currentPage ? 'bg-gray-400 text-white' : ' border-2 border-gray-300' ?>   text-sm rounded-lg focus:outline-none " aria-current="page">
+                    <p><?php echo ($i) ?></p>
+                </a>
+            <?php endfor; ?>
+        </div>
+        <button type="button" class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">
+            <span aria-hidden="true" class="sr-only">Next</span>
+            <svg class="flex-shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"></path>
+            </svg>
+        </button>
+    </nav>
 
 
-<?php include("./template/footer.php") ?>
+    <?php include("./template/footer.php") ?>
+    <!-- <?php for ($i = 1; $i <= $totaPage; $i++) : ?>
+        <a type="button" class="h-[38px] w-[38px] flex justify-center items-center border border-transparent bg-blue-300 text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:border-transparent dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">
+            <?= $i ?>
+        </a>
+    <?php endfor; ?> -->
