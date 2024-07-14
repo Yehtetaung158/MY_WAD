@@ -10,7 +10,7 @@
 
 <body>
 
-    <main class=" max-w[100-px] mx-auto p-10 bg-slate-200">
+    <main class=" max-w[100-px] mx-auto px-10 mt-4 bg-slate-200">
 <header class=" flex gap-2">
             <!-- Navigation Toggle -->
             <!-- Navigation Toggle -->
