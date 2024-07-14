@@ -6,7 +6,6 @@ require_once "./db_connection.php";
 ?>
 <?php
 
-$recordPerPaage = 5;
 
 $sql = "SELECT *,students.id as student_id FROM `students` LEFT JOIN nationlity ON nationlity.nationlity_id= students.nationality_id LEFT JOIN gender ON gender.id = students.gender_id ";
 
@@ -18,29 +17,25 @@ if ($_GET['q']) {
     $countSql .= "WHERE name LIKE '%$q%'";
 }
 
-
 $countQuery = mysqli_query($conn, $countSql);
 
 $countRow = mysqli_fetch_assoc($countQuery);
 
 $totalRecord = $countRow['total_student'];
+$recordPerPaage = 5;
 
 $totaPage = ceil($totalRecord / $recordPerPaage);
 
-echo ($totaPage);
-$currentPage = $_GET['page'];
+$currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
 
-$offset = $currentPage * $recordPerPaage;
+$offset = ($currentPage - 1) * $recordPerPaage;
 
-$current_offset = $offset - 5;
-
-$sql .= "LIMIT $current_offset,$recordPerPaage";
+$sql .= " LIMIT $offset,$recordPerPaage";
 
 $query = mysqli_query($conn, $sql);
 
 
 ?>
-<!-- while ($row = mysqli_fetch_assoc($query)) : -->
 <h1 class=" py-3">Students' List</h1>
 <div class=" w-full flex flex-col">
     <div class=" flex justify-between items-center">
@@ -120,37 +115,36 @@ $query = mysqli_query($conn, $sql);
         </table>
     </div>
 
-    <?php 
-        $start=$currentPage >3 ? $currentPage-3 : 1;
-        $end=$currentPage+3 < $totaPage ? $currentPage+3 : $totaPage;
+    <?php
+    $start = $currentPage > 3 ? $currentPage - 3 : 1;
+    $end = $currentPage + 3 < $totaPage ? $currentPage + 3 : $totaPage;
     ?>
 
     <nav class="flex justify-start items-center gap-x-1">
-        <button type="button" class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">
+    <?php if(  0 < $currentPage - 1)  : ?>
+        <a href="./studentList.php?page=<?= $currentPage - 1 ?>&<?= isset($_GET['q']) ? 'q=' . $_GET['q'] : '' ?>" class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">
             <svg class="flex-shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="m15 18-6-6 6-6"></path>
             </svg>
             <span aria-hidden="true" class="sr-only">Previous</span>
-        </button>
+        </a>
+        <?php endif ?>
         <div class="flex items-center gap-x-1">
             <?php for ($i = $start; $i <= $end; $i++) : ?>
-                <a href="./studentList.php?page=<?= $i ?>" class=" flex items-center justify-center z-50 size-[38px] <?= $i == $currentPage ? 'bg-gray-400 text-white' : ' border-2 border-gray-300' ?>   text-sm rounded-lg focus:outline-none " aria-current="page">
+                <a href="./studentList.php?page=<?= $i ?>&<?= isset($_GET['q']) ? 'q=' . $_GET['q'] : '' ?>" class=" flex items-center justify-center z-50 size-[38px] <?= $i == $currentPage ? 'bg-gray-400 text-white' : ' border-2 border-gray-300' ?>   text-sm rounded-lg focus:outline-none " aria-current="page">
                     <p><?php echo ($i) ?></p>
                 </a>
             <?php endfor; ?>
         </div>
-        <button type="button" class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">
-            <span aria-hidden="true" class="sr-only">Next</span>
-            <svg class="flex-shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="m9 18 6-6-6-6"></path>
-            </svg>
-        </button>
+        <?php if( $currentPage + 1 <= $totaPage): ?>
+            <a href="./studentList.php?page=<?= $currentPage + 1 ?>&<?= isset($_GET['q']) ? 'q=' . $_GET['q'] : '' ?>" class="min-h-[38px] min-w-[38px] py-2 px-2.5 inline-flex jusify-center items-center gap-x-2 text-sm rounded-lg text-gray-800 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">
+                <span aria-hidden="true" class="sr-only">Next</span>
+                <svg class="flex-shrink-0 size-3.5" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m9 18 6-6-6-6"></path>
+                </svg>
+            </a>
+        <?php endif ?>
     </nav>
 
 
     <?php include("./template/footer.php") ?>
-    <!-- <?php for ($i = 1; $i <= $totaPage; $i++) : ?>
-        <a type="button" class="h-[38px] w-[38px] flex justify-center items-center border border-transparent bg-blue-300 text-gray-800 hover:bg-gray-100 py-2 px-3 text-sm rounded-lg focus:outline-none focus:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:border-transparent dark:text-white dark:hover:bg-white/10 dark:focus:bg-white/10">
-            <?= $i ?>
-        </a>
-    <?php endfor; ?> -->
