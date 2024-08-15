@@ -37,15 +37,15 @@ require_once "./db_connection.php";
                 while ($row = mysqli_fetch_assoc($query)) :
                 ?>
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"><?= $row['nationlity_id'] ?></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "><?= $row['nationlity_id'] ?></td>
 
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"><?= $row['nation'] ?></td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 "><?= $row['nation'] ?></td>
 
-                        <td class="px-6 py-4 text-end whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"><?= $row['nation_code'] ?></td>
+                        <td class="px-6 py-4 text-end whitespace-nowrap text-sm font-medium text-gray-800 "><?= $row['nation_code'] ?></td>
 
-                        <td class="px-6 py-4 text-end whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200"><?= $row['nation_count'] ?></td>
+                        <td class="px-6 py-4 text-end whitespace-nowrap text-sm font-medium text-gray-800 "><?= $row['nation_count'] ?></td>
 
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200 flex gap-2 justify-end">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800  flex gap-2 justify-end">
                             <a href="./nationlity-edit.php?row_id=<?= $row['nationlity_id'] ?>">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4 text-blue-600">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />

@@ -18,6 +18,8 @@ require_once "./db_connection.php";
             <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">#</th>
             <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Title</th>
             <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Short</th>
+            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Batch-count</th>
+            <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">student-count</th>
             <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Fee</th>
             <th scope="col" class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase">Create At</th>
             <th scope="col" class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase">Action</th>
@@ -25,7 +27,21 @@ require_once "./db_connection.php";
     </thead>
     <tbody class=" divide-gray-200">
         <?php
-        $sql = "SELECT * FROM courses";
+        // $sql = "SELECT * FROM courses";
+        $sql = "SELECT 
+    courses.*, 
+    (SELECT COUNT(id) 
+     FROM batches 
+     WHERE courses.id = batches.course_id) AS batches_count,
+    (SELECT COUNT(id) 
+     FROM enrollments 
+     WHERE enrollments.batch_id IN 
+           (SELECT id 
+            FROM batches 
+            WHERE courses.id = batches.course_id)) AS student_count
+FROM 
+    courses;
+";
 
         // echo($conn);
 
@@ -37,8 +53,10 @@ require_once "./db_connection.php";
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= $row['id'] ?></td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= $row['title'] ?></td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= $row['short'] ?></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= $row['batches_count'] ?></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= $row['student_count'] ?></td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= $row['fee'] ?></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= date("d M Y",strtotime($row['created_at'])) ?></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><?= date("d M Y", strtotime($row['created_at'])) ?></td>
                 <td class=" flex gap-2 px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800"><a href="./CourseEdit.php?row_id=<?= $row['id'] ?>">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
                             <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
