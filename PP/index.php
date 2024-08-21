@@ -1,6 +1,8 @@
-<?php 
+<?php
 
-echo("I am indexs");
+require_once "./functions.php";
+require_once "./routes/web.php";
+
 $path = $_SERVER['PATH_INFO'] ?? "/";
 
 // if($path === '/'){
@@ -13,10 +15,22 @@ $path = $_SERVER['PATH_INFO'] ?? "/";
 //     require_once "./views/not-found.php";
 // }
 
-$routes=[
-    "/"=>"./views/home.php",
-    "/about-us"=>"./views/about.php",
-    "/services"=>"./views/services.php",
-];
+// views($routes[$path] ?? "not-found");
 
-require_once $routes[$path] ?? "./views/not-found.php";
+echo "<pre>";
+
+$current = $routes[$path] ?? false;
+
+if($current){
+
+    $arr = explode("@", $current);
+    
+    $controllerfile = $arr[0];
+    $controllerFunction = $arr[1];
+    
+    require_once "./controller/" . $controllerfile . ".php";
+    
+    call_user_func($controllerFunction);
+}else{
+    views("not-found");
+};
