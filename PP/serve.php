@@ -1,5 +1,6 @@
 <?php
 
-$port=8090;
+$port = 8090;
+$startingPath = __DIR__ . "/public";
 
-exec("php -S localhost:$port");
+exec("php -S localhost:$port -t $startingPath");

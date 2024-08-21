@@ -1,7 +1,7 @@
 <?php
 
-require_once "./functions.php";
-require_once "./routes/web.php";
+require_once __DIR__ . "/functions.php";
+require_once __DIR__ . "/routes/web.php";
 
 routing($routes);
 
