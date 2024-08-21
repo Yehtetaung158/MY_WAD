@@ -24,7 +24,7 @@ $current = $routes[$path] ?? false;
 if($current){
 
     $arr = explode("@", $current);
-    
+
     $controllerfile = $arr[0];
     $controllerFunction = $arr[1];
     
