@@ -1,3 +1,4 @@
-<?php 
+<?php template('header'); ?>
 
-echo("I am services");
+
+<?php template('footer'); ?>

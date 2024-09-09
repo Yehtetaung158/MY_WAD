@@ -4,19 +4,28 @@
 
 function index()
 {
-    $conn = mysqli_connect("localhost", "Yehtetaung", 12345678, "wad_school");
-    $sql = "SELECT * FROM courses LIMIT 5";
+    // $conn = mysqli_connect("localhost", "Yehtetaung", 12345678, "wad_school");
+    // $sql = ;
 
-    $query = mysqli_query($conn, $sql);
+    // $query = mysqli_query($conn, $sql);
 
-    $rows = [];
+    // $rows = [];
 
-    while ($row = mysqli_fetch_assoc($query)) {
-        array_push($rows, $row);
-    }
+    // while ($row = mysqli_fetch_assoc($query)) {
+    //     array_push($rows, $row);
+    // }
 
-    header("Content-Type:application/json");
+    // header("Content-Type:application/json");
 
-    // print_r($rows);
-    echo json_encode($rows);
+    // // print_r($rows);
+    // echo json_encode($rows);
+    $rows=get("SELECT * FROM courses LIMIT 10");
+    return views("courses",["courses"=>$rows]);
 };
+
+function delete(){
+    $id = $_GET['id'];
+    if (runQuery("DELETE FROM courses WHERE id=$id")) {
+        redirect(url("/courses"));
+    }
+}

@@ -1,3 +1,9 @@
-<?php 
+<?php template('header'); ?>
 
-echo("I am about");
+<section class="text-gray-600 body-font w-full">
+    
+</section>
+
+
+
+<?php template('footer'); ?>
