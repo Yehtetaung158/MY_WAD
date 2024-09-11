@@ -1,7 +1,7 @@
 <?php
 
 class TextBuilder {
-    public $text = ""; // Similar to $rawSql in QueryBuilder
+    private $text = ""; // Similar to $rawSql in QueryBuilder
 
     // Constructor to initialize the text with optional initial value
     function __construct($initialText = "") {

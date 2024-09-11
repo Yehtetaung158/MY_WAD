@@ -2,8 +2,8 @@
 
 class QueryBuilder
 {
-    public $rawSql = "";
-    public $table;
+    private $rawSql = "";
+    private $table;
     function __construct($table)
     {
         $this->table = $table;
