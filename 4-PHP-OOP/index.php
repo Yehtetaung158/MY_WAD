@@ -4,10 +4,12 @@
 // require_once "./db-test.php";
 require_once "./classes/Db.php";
 require_once "./classes/QueryBuilder.php";
+require_once "./classes/TextBuilder.php";
 // system("clear");
 echo ("<pre>");
-$qb = new QueryBuilder("students");
 $myDb = new Db;
+$qb = new QueryBuilder("students");
+$myTextqb=new TextBuilder("");
 
 $sql = $qb->select(["id", "name", "date_of_birth"])
     // ->where("id", "=", "1")
@@ -17,7 +19,18 @@ $sql = $qb->select(["id", "name", "date_of_birth"])
     ->limit(10)
     ->sql();
 $students = $myDb->all($sql);
-print_r($students);
+// print_r($students);
+
+$text = $myTextqb->append("Hello, ")
+    ->append("world!")
+    ->newLine()
+    ->append("This is a simple text builder.")
+    ->newLine()
+    ->append("It allows method chaining like QueryBuilder.")
+    ->getText();
+
+echo $text;
+
 
 // $myPhone=new Phone("SamSung","s24");
 

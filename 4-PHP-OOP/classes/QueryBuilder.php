@@ -26,7 +26,7 @@ class QueryBuilder
         $this->rawSql .= "$current $key $direction";
         return $this;
     }
-    public function limit($limit, $offset=0)
+    public function limit($limit, $offset = 0)
     {
         if (!strpos($this->rawSql, "LIMIT")) {
             $this->rawSql .= " LIMIT $offset,$limit";
