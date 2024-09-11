@@ -1,17 +1,14 @@
 <?php
+echo ("<pre>");
 
 require_once "./autoload.php";
 
-// require_once "./classes/Phone.php";
-// require_once "./db-test.php";
-// require_once "./classes/Db.php";
-// require_once "./classes/QueryBuilder.php";
-// require_once "./classes/TextBuilder.php";
-// system("clear");
-echo ("<pre>");
+$child = new Childclass();
+print_r($child);
+
 $myDb = new Db;
 $qb = new QueryBuilder("students");
-$myTextqb=new TextBuilder("");
+$myTextqb = new TextBuilder("");
 
 $sql = $qb->select(["id", "name", "date_of_birth"])
     // ->where("id", "=", "1")
@@ -23,7 +20,7 @@ $sql = $qb->select(["id", "name", "date_of_birth"])
 $students = $myDb->all($sql);
 // print_r($students);
 
-$textSql = $myTextqb->append("Hello, ")
+$textSql = $myTextqb->append("Hellos, ")
     ->append("world!")
     ->newLine()
     ->append("This is a simple text builder.")
@@ -31,10 +28,10 @@ $textSql = $myTextqb->append("Hello, ")
     ->append("It allows method chaining like QueryBuilder.")
     ->getText();
 
-echo $textSql;
-
-
-// $myPhone=new Phone("SamSung","s24");
+// echo $textSql;
+    
+    
+    // $myPhone=new Phone("SamSung","s24");
 
 // $myPhone->name="Samsung";
 // $myPhone->model="s24";
