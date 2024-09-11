@@ -3,8 +3,14 @@ echo ("<pre>");
 
 require_once "./autoload.php";
 
+$batches=new Batch;
+print_r($batches->select()->all());
+
+// $student=new Student;
+// print_r($student->select(["id","name"])->limit(5)->all());
+
 $child = new Childclass("aaa","bbb","ccc","ddd","eee");
-print_r($child);
+// print_r($child);
 
 $myDb = new Db;
 $qb = new QueryBuilder("students");
