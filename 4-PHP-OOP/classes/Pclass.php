@@ -3,9 +3,16 @@
 class Pclass
 {
     public $a;
-    public $b;
-    public $c;
+    protected $b;
+    private $c;
 
+    function __construct($a,$b,$c)
+    {
+        $this->a= $a;
+        $this->b=$b;
+        $this->c=$c;
+    }
+  
     public function x()
     {
         return "x";

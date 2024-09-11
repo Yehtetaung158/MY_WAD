@@ -3,7 +3,7 @@ echo ("<pre>");
 
 require_once "./autoload.php";
 
-$child = new Childclass();
+$child = new Childclass("aaa","bbb","ccc","ddd","eee");
 print_r($child);
 
 $myDb = new Db;
