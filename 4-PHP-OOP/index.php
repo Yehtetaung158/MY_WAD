@@ -52,3 +52,9 @@ $textSql = $myTextqb->append("Hellos, ")
 // $student=$mydb->all("select * from students limit 10");
 
 // print_r($student);
+
+//traits--->
+$request=new Request;
+echo $request->File();
+echo $request->Get();
+echo $request->Post();
