@@ -1,0 +1,19 @@
+{
+    "name": "yha/santar",
+    "description": "San Kyi Tar Par",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Yha\\Santar\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Yha"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^3.7",
+        "guzzlehttp/guzzle": "^7.9"
+    }
+}
