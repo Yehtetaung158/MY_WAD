@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Expr\FuncCall;
@@ -30,19 +29,17 @@ Route::get('user/{name?}', function ($name = null) {
 });
 
 
-//try some calculations===
+//try some calculations===>
 
 //shopping data-/products
-
-// Route::get('/products', function () {
-//     $res = Http::withOptions(['verify' => false])->get("https://fakestoreapi.com/products");
-//     $products = $res->json();
-//     return $products;
-// });
+Route::get('/products', function () {
+    $res = Http::withOptions(['verify' => false])->get("https://fakestoreapi.com/products");
+    $products = $res->json();
+    return $products;
+});
 
 
 //shopping data-/products/max-pice
-
 Route::get('/products/{max_price}', function ($max_price) {
     $res = Http::withOptions(['verify' => false])->get("https://fakestoreapi.com/products");
     $products = $res->collect();
