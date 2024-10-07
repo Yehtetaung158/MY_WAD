@@ -38,11 +38,17 @@ class TestController extends Controller
     //     return view('test',compact('htmlString'));
     // }
 
+    // public function test()
+    // {
+    //     $names = [
+    //         "Ma Ma","Kyaw Kyaw","Aung Aung","Zaw Zaw"
+    //     ];
+    //     return view('test', ['names' => $names]);
+    // }
+
     public function test()
     {
-        $names = [
-            "Ma Ma","Kyaw Kyaw","Aung Aung","Zaw Zaw"
-        ];
-        return view('test', ['names' => $names]);
+        $age = 35;
+        return view('test', compact('age'));
     }
 }
