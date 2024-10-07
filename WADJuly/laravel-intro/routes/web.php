@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,3 +29,4 @@ Route::get('/contact', [ItemController::class, 'contact']);
 Route::get('/about', [ItemController::class, 'about']);
 Route::get('/area/{w}/{h}',[ItemController::class,'calculate']);
 Route::get('/profile/{age?}',[ItemController::class,'profile']);
+Route::get('/test',[TestController::class,'test']);
