@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,5 @@ Route::get('/about', [ItemController::class, 'about']);
 Route::get('/area/{w}/{h}',[ItemController::class,'calculate']);
 Route::get('/profile/{age?}',[ItemController::class,'profile']);
 Route::get('/test',[TestController::class,'test']);
+
+Route::resource('product', ProductController::class);
