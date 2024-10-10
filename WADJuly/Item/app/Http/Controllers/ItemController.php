@@ -13,7 +13,8 @@ class ItemController extends Controller
      */
     public function index()
     {
-        $items=Item::all();
+        $items = Item::all();
+        return view('item.index', compact('items'));
         return $items;
     }
 
@@ -37,7 +38,7 @@ class ItemController extends Controller
         $item->stock = $request->stock;
         $item->description = $request->description;
         $item->save();
-        return back();
+        return redirect()->route('item.index');
     }
 
     /**
@@ -69,6 +70,10 @@ class ItemController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $item = Item::find($id);
+        if($item){
+            $item->delete();
+            return back();
+        }
     }
 }
