@@ -13,7 +13,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories=Category::all();
+        return view('category.index',compact('categories'));
     }
 
     /**
@@ -21,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return  view('category.create');
     }
 
     /**
@@ -29,7 +30,11 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        //
+        $categories=new Category();
+        $categories->name=$request->name;
+        $categories->description=$request->description;
+        $categories->save();
+        return redirect()->route('category.index');
     }
 
     /**
@@ -61,6 +66,9 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        if($category){
+            $category->delete();
+            return back();
+        }
     }
 }
