@@ -58,9 +58,10 @@ class ItemController extends Controller
      */
     public function edit(string $id)
     {
+        $categories= Category::all();
         $item = Item::find($id);
         if ($item) {
-            return view("item.edit", compact('item'));
+            return view("item.edit", compact('item','categories'));
         }
     }
 
@@ -74,6 +75,7 @@ class ItemController extends Controller
         $item->price = $request->price;
         $item->stock = $request->stock;
         $item->description = $request->description;
+        $item->category_id = $request->categories;
         $item->status=$request->status;
         $item->update();
         return redirect()->route('item.index');

@@ -56,7 +56,7 @@
                                 {{ $item->stock }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $item->category_id }}
+                                {{ $item->category->name }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $item->status }}
