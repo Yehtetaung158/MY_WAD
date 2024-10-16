@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('stock');
             $table->text('description');
+            $table->enum('status',['availabel','unavailabel']);
             $table->timestamps();
         });
     }

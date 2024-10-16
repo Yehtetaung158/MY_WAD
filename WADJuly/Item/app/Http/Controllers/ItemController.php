@@ -37,6 +37,7 @@ class ItemController extends Controller
         $item->price = $request->price;
         $item->stock = $request->stock;
         $item->description = $request->description;
+        $item->status=$request->status;
         $item->save();
         return redirect()->route('item.index');
     }
@@ -70,6 +71,7 @@ class ItemController extends Controller
         $item->price = $request->price;
         $item->stock = $request->stock;
         $item->description = $request->description;
+        $item->status=$request->status;
         $item->update();
         return redirect()->route('item.index');
     }

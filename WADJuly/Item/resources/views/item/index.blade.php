@@ -28,6 +28,9 @@
                             Stock
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Status
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Action
                         </th>
                     </tr>
@@ -48,6 +51,9 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{ $item->stock }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $item->status }}
                             </td>
                             <td class="px-6 py-4">
                                 <a href="{{ route('item.edit', $item->id) }}" type="button"
