@@ -28,6 +28,9 @@
                             Stock
                         </th>
                         <th scope="col" class="px-6 py-3">
+                            Category
+                        </th>
+                        <th scope="col" class="px-6 py-3">
                             Status
                         </th>
                         <th scope="col" class="px-6 py-3">
@@ -51,6 +54,9 @@
                             </td>
                             <td class="px-6 py-4">
                                 {{ $item->stock }}
+                            </td>
+                            <td class="px-6 py-4">
+                                {{ $item->category_id }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $item->status }}

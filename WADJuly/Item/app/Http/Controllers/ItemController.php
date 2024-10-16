@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Item;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\Print_;
@@ -23,7 +24,8 @@ class ItemController extends Controller
      */
     public function create()
     {
-        return view('item.create');
+        $categories= Category::all();
+        return view('item.create',compact('categories'));
     }
 
     /**
@@ -31,12 +33,13 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        // return request();
+        // return $request;
         $item = new Item();
         $item->name = $request->name;
         $item->price = $request->price;
         $item->stock = $request->stock;
         $item->description = $request->description;
+        $item->category_id = $request->categories;
         $item->status=$request->status;
         $item->save();
         return redirect()->route('item.index');

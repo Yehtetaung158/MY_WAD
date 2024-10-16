@@ -30,6 +30,18 @@
                     <label for="description" class=" text-gray-900 text-lg ">Description</label>
                     <textarea name="description" id="description" class="rounded-lg"></textarea>
                 </div>
+
+                <div class=" w-full mx-auto">
+                    <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
+                        Category</label>
+                    <select name="categories" id="categories"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        @foreach ($categories as $category )
+                        <option value="{{$category->id}}" selected>  {{ $category->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
                 <div class=" flex flex-col my-2 ">
                     <div class="flex items-center mb-4">
                         <input id="disabled-radio-1" type="radio" value="availabel" name="status"
@@ -44,7 +56,7 @@
                             class="ms-2 text-sm font-medium text-gray-400 dark:text-gray-500">Unavailabel</label>
                     </div>
                 </div>
-                <button class=" w-full py-2 bg-blue-500 rounded-lg mt-4 text-white text-lg">Create </button>
+                <button type="submit" class=" active:bg-blue-300 w-full py-2 bg-blue-500 rounded-lg mt-4 text-white text-lg">Create </button>
             </form>
         </div>
     </div>
