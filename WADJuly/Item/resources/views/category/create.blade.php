@@ -16,11 +16,21 @@
                 @csrf
                 <div class=" flex flex-col my-2 ">
                     <label for="name" class=" text-gray-900 text-lg ">Name</label>
-                    <input type="text" name="name" id="name" class=" rounded-lg ">
+                    <input type="text" name="name" id="name" class=" rounded-lg @error('name')
+                        border-red-500
+                    @enderror"  value="{{ old('name') }}">
+                    @error('name')
+                        <p class="text-red-500 text-xs mt-1 ">{{ $message }}</p>
+                    @enderror
                 </div>
                 <div class=" flex flex-col my-2 ">
                     <label for="description" class=" text-gray-900 text-lg ">Description</label>
-                    <textarea name="description" id="description" class="rounded-lg"></textarea>
+                    <textarea name="description" id="description" class="rounded-lg @error('description')
+                        border-red-500
+                    @enderror">{{ old('description') }}</textarea>
+                    @error('description')
+                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
                 <button class=" w-full py-2 bg-blue-500 rounded-lg mt-4 text-white text-lg">Create </button>
             </form>

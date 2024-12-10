@@ -92,6 +92,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $items->links('pagination::tailwind') }}
         </div>
     </div>
 

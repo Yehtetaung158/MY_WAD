@@ -22,7 +22,16 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string',
+            'description' => 'required|string',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'အမည်ထည့်ပေးပါ။',
+            'description.required' => 'အကြောင်းအရာ ထည့်ပေးပါ။',
         ];
     }
 }
