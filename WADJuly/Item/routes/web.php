@@ -14,7 +14,8 @@ Route::get('/', function () {
 //     return view('item.create');
 // });
 
-Route::resource('/item',ItemController::class);
-Route::resource('/category',CategoryController::class);
-Route::resource('/people',PeopleController::class);
-Route::resource('/phone',PhoneController::class);
+Route::resource('/item', ItemController::class);
+Route::resource('/category', CategoryController::class);
+Route::resource('/people', PeopleController::class);
+Route::resource('/phone', PhoneController::class);
+Route::get('/search', [ItemController::class, 'search'])->name('item.search');

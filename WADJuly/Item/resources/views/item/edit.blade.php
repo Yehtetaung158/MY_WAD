@@ -13,7 +13,7 @@
     {{-- {{$item}} --}}
     <div class="max-w-md mx-auto">
         <div class=" shadow-lg p-4 rounded-xl mt-5">
-            <form action="{{ route('item.update',$item->id) }}" method="POST" class=" flex flex-col space-y-6">
+            <form action="{{ route('item.update',$item->id) }}" method="POST" class=" flex flex-col space-y-6" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class=" flex flex-col my-2 ">
@@ -31,6 +31,11 @@
                 <div class=" flex flex-col my-2 ">
                     <label for="description" class=" text-gray-900 text-lg ">Description</label>
                     <textarea  name="description" id="description" class="rounded-lg">{{$item->description}}</textarea>
+                </div>
+                <div class=" flex flex-col my-2 ">
+                    <img src="{{ asset('storage/images/' . $item->image) }}" alt="">
+                    <label for="image" class=" text-gray-900 text-lg ">Image</label>
+                    <input type="file" name="image" id="image" class="rounded-lg" >
                 </div>
                 <div class=" w-full mx-auto">
                     <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select

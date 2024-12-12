@@ -12,7 +12,7 @@
 <body>
     <div class="max-w-md mx-auto">
         <div class=" shadow-lg p-4 rounded-xl mt-5">
-            <form action="{{ route('item.store') }}" method="POST" class=" flex flex-col space-y-6">
+            <form action="{{ route('item.store') }}" method="POST" class=" flex flex-col space-y-6" enctype="multipart/form-data">
                 @csrf
                 <div class=" flex flex-col my-2 ">
                     <label for="name" class=" text-gray-900 text-lg ">Name</label>
@@ -40,6 +40,10 @@
                         <option value="{{$category->id}}" selected>  {{ $category->name }}</option>
                         @endforeach
                     </select>
+                </div>
+
+                <div>
+                    <input type="file" name="image" id="image" class="rounded-lg">
                 </div>
 
                 <div class=" flex flex-col my-2 ">
