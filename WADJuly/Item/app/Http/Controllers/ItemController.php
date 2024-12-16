@@ -61,12 +61,25 @@ class ItemController extends Controller
         //     // return $filename;
         // }
 
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = 'item_image_' . uniqid() . '.' . $file->extension();
-            $file->move(public_path('/storage/images'), $filename);
-            $request->merge(['image' => $filename]);
+        // if ($request->hasFile('image')) {
+        //     $file = $request->file('image');
+        //     $filename = 'item_image_' . uniqid() . '.' . $file->extension();
+        //     $file->move(public_path('/storage/images'), $filename);
+        //     $request->merge(['image' => $filename]);
+        // }
+
+        // dd(request('image'));
+        $images=[];
+        if($request->hasFile('image')) {
+            $files = $request->file('image');
+            // dd($files);
+            foreach($files as $file) {
+                $filename = 'item_image_' . uniqid() . '.' . $file->extension();
+                $file->move(public_path('/storage/images'), $filename);
+                $images[] = $filename;
+            }
         }
+        $filename = json_encode($images);
 
 
         // return $request->file('image');

@@ -43,7 +43,8 @@
                 </div>
 
                 <div>
-                    <input type="file" name="image" id="image" class="rounded-lg">
+                    <label for="image" class=" text-gray-100 text-lg ">Image</label>
+                    <input type="file" name="image[]" id="image" class="rounded-lg" multiple>
                 </div>
 
                 <div class=" flex flex-col my-2 ">

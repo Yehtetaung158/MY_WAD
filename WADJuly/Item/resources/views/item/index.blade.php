@@ -71,7 +71,20 @@
                                 {{ $item->status }}
                             </td>
                             <td class="px-6 py-4">
-                                <img src="{{ asset('storage/images/' . $item->image) }}" alt="" class="w-12 h-12">
+                                @php
+                                    // Decode the JSON string into a PHP array
+                                    $images = json_decode($item->image, true);
+                                @endphp
+
+                                @if (is_array($images) && !empty($images))
+                                    @foreach ($images as $image)
+                                        <img src="{{ asset('storage/images/' . $image) }}" alt=""
+                                            class="w-12 h-12">
+                                    @endforeach
+                                @else
+                                    <p>No images available.</p>
+                                @endif
+
                             </td>
                             <td class="px-6 py-4 flex gap-2">
                                 <a href="{{ route('item.show', $item->id) }}" type="button" title="detail">
