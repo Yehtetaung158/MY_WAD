@@ -11,6 +11,7 @@
 
 <body>
     <div class="max-w-md mx-auto">
+        {{$fruit}}
         <div class=" shadow-lg p-4 rounded-xl mt-5">
             <form action="{{ route('category.update',$category->id) }}" method="POST" class=" flex flex-col space-y-6">
                 @method('PUT')

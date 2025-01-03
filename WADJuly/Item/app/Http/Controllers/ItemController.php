@@ -49,7 +49,7 @@ class ItemController extends Controller
             'description' => 'required',
             'categories' => 'required',
             'status' => 'required',
-            'image' => 'required',
+            // 'image' => 'required',
         ]);
 
         // if ($request->image) {

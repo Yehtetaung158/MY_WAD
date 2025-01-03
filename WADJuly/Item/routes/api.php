@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryApiController;
+use App\Http\Controllers\ItemApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -12,3 +13,6 @@ Route::get('/category', [CategoryApiController::class, 'index']);
 Route::post('/category/store', [CategoryApiController::class, 'store']);
 Route::delete('/category/delete/{id}', [CategoryApiController::class, 'destroy']);
 Route::put('/category/update/{id}', [CategoryApiController::class, 'update']);
+
+
+Route::apiResource('/item', ItemApiController::class);

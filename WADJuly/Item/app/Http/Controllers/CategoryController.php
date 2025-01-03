@@ -5,16 +5,25 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use Illuminate\Support\Facades\View;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+
+    public function  __construct() {
+
+        View::share('fruit', 'mango');
+    }
+
     public function index()
     {
+        // View::share('fruit', 'apple');
+        $appName=config('app.appName');
         $categories = Category::all();
-        return view('category.index', compact('categories'));
+        return view('category.index', compact('categories','appName'));
     }
 
     /**
@@ -22,6 +31,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        // View::share('fruit', 'apple');
         return  view('category.create');
     }
 
@@ -38,7 +48,7 @@ class CategoryController extends Controller
         $categories->name = $request->name;
         $categories->description = $request->description;
         $categories->save();
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('success', 'Category created successfully');
     }
 
     /**
@@ -54,6 +64,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+        // View::share('fruit', 'apple');
         return view('category.edit', compact('category'));
     }
 
@@ -65,7 +76,7 @@ class CategoryController extends Controller
         $category->name = $request->name;
         $category->description = $request->description;
         $category->update();
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('updated', 'Category is updated successfully');
     }
 
     /**
@@ -75,7 +86,7 @@ class CategoryController extends Controller
     {
         if ($category) {
             $category->delete();
-            return back();
+            return redirect()->route('category.index')->with('deleted', 'Category is deleted successfully');
         }
     }
 }
